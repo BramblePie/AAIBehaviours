@@ -12,7 +12,7 @@ int main()
 		printf("Mouse click on ( %d, %d ) : button %d, isPressed %d, mods %d\n", x, y, button, action, mod);
 	};
 
-	const MouseObserver& ob = *MouseObserver::GetObeserver();
+	auto& ob = *MouseObserver::GetObeserver();
 	ob += f;
 
 	window->Start();

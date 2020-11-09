@@ -13,6 +13,7 @@
 class MouseObserver
 {
 public:
+	MouseObserver(const MouseObserver& mo) = delete;
 	~MouseObserver()
 	{
 	}
