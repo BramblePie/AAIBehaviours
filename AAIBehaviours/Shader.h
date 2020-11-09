@@ -6,7 +6,7 @@ public:
 	// Shader program id
 	unsigned int ID;
 
-	Shader();
+	Shader(const int width, const int height);
 	Shader(const Shader& s) = delete;
 	~Shader();
 

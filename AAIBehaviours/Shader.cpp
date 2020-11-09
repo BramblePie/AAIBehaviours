@@ -5,15 +5,40 @@
 
 #include <iostream>
 
-Shader::Shader()
+Shader::Shader(const int width, const int height)
 {
+	// Hard code simple projection to pixels
+	float M1[]{ 1.0f, 0.0f, 0.0f, 0.0f }, M2[]{ 0.0f, 1.0f, 0.0f, 0.0f },
+		M3[]{ 0.0f, 0.0f, 1.0f, 0.0f }, M4[]{ 0.0f, 0.0f, 0.0f, 1.0f };
+	float* M[]{ M1, M2, M3, M4 };
+
+	float right = width;
+	float left = 0.0f;
+	float top = 0.0f;
+	float bottom = height;
+
+	M[0][0] = 2.0f / (right - left);
+	M[1][1] = 2.0f / (top - bottom);
+	M[2][2] = -1.0f;
+	M[3][0] = -(right + left) / (right - left);
+	M[3][1] = -(top + bottom) / (top - bottom);
+
 	// Shader code in std string
-	const char* vShaderCode = "#version 430 core\n"
+	const size_t n = 400;
+	const char vertexCode[] = "#version 430 core\n"
 		"layout(location = 0) in vec3 aPos;\n"
+		"mat4 M = mat4("
+		"%f, 0.0, 0.0, 0.0, "
+		"0.0, %f, 0.0, 0.0, "
+		"0.0, 0.0, %f, 0.0, "
+		"%f, %f, 0.0, 1.0);\n"
 		"void main()\n"
 		"{\n"
-		"	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+		"	gl_Position = M * vec4(aPos, 1.0);\n"
 		"}\n";
+
+	char* vShaderCode = new char[n]();
+	sprintf_s(vShaderCode, n, vertexCode, M[0][0], M[1][1], M[2][2], M[3][0], M[3][1]);
 
 	const char* fShaderCode = "#version 430 core\n"
 		"out vec4 FragColor;\n"

@@ -2,8 +2,6 @@
 
 #include "Window.h"
 
-#include "MouseObserver.h"
-
 int main()
 {
 	Window* window = new Window(1200, 800);
@@ -12,7 +10,7 @@ int main()
 		printf("Mouse click on ( %d, %d ) : button %d, isPressed %d, mods %d\n", x, y, button, action, mod);
 	};
 
-	auto& ob = *MouseObserver::GetObeserver();
+	auto& ob = *MouseObserver::GetObserver();
 	ob += f;
 
 	window->Start();
