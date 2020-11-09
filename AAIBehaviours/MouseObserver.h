@@ -49,7 +49,7 @@ private:
 	static MouseObserver* singleton;
 
 public:
-	static const MouseObserver* GetObeserver()
+	static const MouseObserver* GetObserver()
 	{
 		return singleton;
 	}
