@@ -3,7 +3,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-class Window
+#include "MouseObserver.h"
+
+class Window : public MouseObserver
 {
 public:
 
@@ -20,4 +22,6 @@ private:
 	GLFWwindow* window;
 
 	int width, height;
+
+	GLFWwindow* SetupWindow(const int w, const int h);
 };
