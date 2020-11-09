@@ -16,5 +16,4 @@ int main()
 	window->Start();
 
 	delete window;
-	//system("pause");
 }
