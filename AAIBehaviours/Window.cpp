@@ -5,11 +5,17 @@
 
 #include <iostream>
 
+#include "Sprite.h"
+
 Window::Window(const int width, const int height)
 	: MouseObserver(SetupWindow(width, height)), window(observing), width(width), height(height)
 {
 	shader = new Shader(width, height);
 	shader->use();
+
+	Sprite* s = new Sprite();
+
+	auto m = s->GetTransform();
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	float vertices[] = {
