@@ -8,37 +8,32 @@
 Shader::Shader(const int width, const int height)
 {
 	// Hard code simple projection to pixels
-	float M1[]{ 1.0f, 0.0f, 0.0f, 0.0f }, M2[]{ 0.0f, 1.0f, 0.0f, 0.0f },
-		M3[]{ 0.0f, 0.0f, 1.0f, 0.0f }, M4[]{ 0.0f, 0.0f, 0.0f, 1.0f };
-	float* M[]{ M1, M2, M3, M4 };
+	const float right = (float)width;
+	const float left = 0.0f;
+	const float top = 0.0f;
+	const float bottom = (float)height;
 
-	float right = width;
-	float left = 0.0f;
-	float top = 0.0f;
-	float bottom = height;
+	const float m_00 = 2.0f / (right - left);
+	const float m_11 = 2.0f / (top - bottom);
+	const float m_20 = -(right + left) / (right - left);
+	const float m_21 = -(top + bottom) / (top - bottom);
+	const float m_22 = -1.0f;
 
-	M[0][0] = 2.0f / (right - left);
-	M[1][1] = 2.0f / (top - bottom);
-	M[2][2] = -1.0f;
-	M[3][0] = -(right + left) / (right - left);
-	M[3][1] = -(top + bottom) / (top - bottom);
-
-	// Shader code in std string
+	// Shader code in const chars
 	const size_t n = 400;
 	const char vertexCode[] = "#version 430 core\n"
-		"layout(location = 0) in vec3 aPos;\n"
-		"mat4 M = mat4("
-		"%f, 0.0, 0.0, 0.0, "
-		"0.0, %f, 0.0, 0.0, "
-		"0.0, 0.0, %f, 0.0, "
-		"%f, %f, 0.0, 1.0);\n"
+		"layout(location = 0) in vec2 aPos;\n"
+		"mat3 M = mat3("
+		"%f, 0.0, 0.0, "
+		"0.0, %f, 0.0, "
+		"%f, %f, %f );\n"
 		"void main()\n"
 		"{\n"
-		"	gl_Position = M * vec4(aPos, 1.0);\n"
+		"	gl_Position = vec4(M * vec3(aPos, 1.0), 1.0);\n"
 		"}\n";
 
 	char* vShaderCode = new char[n]();
-	sprintf_s(vShaderCode, n, vertexCode, M[0][0], M[1][1], M[2][2], M[3][0], M[3][1]);
+	sprintf_s(vShaderCode, n, vertexCode, m_00, m_11, m_20, m_21, m_22);
 
 	const char* fShaderCode = "#version 430 core\n"
 		"out vec4 FragColor;\n"
@@ -91,8 +86,8 @@ Shader::Shader(const int width, const int height)
 
 	// delete the shaders as they're linked into our program now and no longer necessery
 	glDeleteShader(vertex);
-	delete[] vShaderCode;
 	glDeleteShader(fragment);
+	delete[] vShaderCode;
 }
 
 Shader::~Shader()
