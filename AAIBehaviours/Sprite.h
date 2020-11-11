@@ -1,6 +1,6 @@
 #pragma once
 
-#include <array>
+#include <vector>
 
 #include "Structs.h"
 
@@ -18,18 +18,18 @@ public:
 
 	const Matrix<float> GetTransform() const;
 
-	const std::array<float, 8> GetVertices() const;
+	const std::vector<float>& GetVertices() const;
 
-	const std::array<unsigned int, 6> GetIndices() const;
+	const std::vector<unsigned int>& GetIndices() const;
 
 private:
 
-	std::array<float, 8> vertices = {
+	std::vector<float> vertices = {
 			0.0f, 0.0f,
 			1.0f, 0.0f,
 			0.0f, 1.0f,
 			0.5f, 0.5f,
 	};
 
-	std::array<unsigned int, 6> indices = { 0, 1, 3, 0, 2, 3 };
+	std::vector<unsigned int> indices = { 0, 1, 3, 0, 2, 3 };
 };

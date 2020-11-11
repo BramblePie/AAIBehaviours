@@ -22,12 +22,12 @@ const Matrix<float> Sprite::GetTransform() const
 	return r;
 }
 
-const std::array<float, 8> Sprite::GetVertices() const
+const std::vector<float>& Sprite::GetVertices() const
 {
 	return vertices;
 }
 
-const std::array<unsigned int, 6> Sprite::GetIndices() const
+const std::vector<unsigned int>& Sprite::GetIndices() const
 {
 	return indices;
 }

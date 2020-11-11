@@ -34,4 +34,7 @@ private:
 	int width, height;
 
 	GLFWwindow* SetupWindow(const int w, const int h);
+
+	unsigned int vao, vbo, ibo;
+	void initBuffers();
 };

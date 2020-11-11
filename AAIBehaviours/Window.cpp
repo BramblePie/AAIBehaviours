@@ -12,30 +12,9 @@ Window::Window(const int width, const int height)
 	shader->use();
 
 	sprites.push_back(new Sprite({ 100.0f,100.0f }, { 100.0f,100.0f }));
+	sprites.push_back(new Sprite({ 400.0f,200.0f }, { 160.0f,160.0f }));
 
-	shader->SetTransform(sprites[0]->GetTransform());
-	auto vertices = sprites[0]->GetVertices();
-	auto indices = sprites[0]->GetIndices();
-
-	unsigned int vbo, ibo, vao;
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ibo);
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(vao);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), &indices, GL_STATIC_DRAW);
-
-	// Hard coded vector 2 float attribute
-	glEnableVertexAttribArray(Shader::pos_attrib_location);
-	glVertexAttribPointer(Shader::pos_attrib_location, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-
-	// note that this is allowed, the call to glVertexAttribPointer registered vbo as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	initBuffers();
 }
 
 int Window::Start()
@@ -58,7 +37,15 @@ int Window::Start()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Draw
-		glDrawElements(GL_TRIANGLES, sprites[0]->GetIndices().size(), GL_UNSIGNED_INT, 0);
+		unsigned int i_off = 0u;
+		unsigned int size;
+		for (auto s : sprites)
+		{
+			shader->SetTransform(s->GetTransform());
+			size = s->GetIndices().size();
+			glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
+			i_off += size;
+		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -99,4 +86,33 @@ GLFWwindow* Window::SetupWindow(const int w, const int h)
 			glEnable(GL_MULTISAMPLE);
 	}
 	return attempt;
+}
+
+void Window::initBuffers()
+{
+	std::vector<float> vertices;
+	std::vector<unsigned int> indices;
+	for (auto sprite : sprites)
+	{
+		vertices.insert(vertices.end(), sprite->GetVertices().begin(), sprite->GetVertices().end());
+		indices.insert(indices.end(), sprite->GetIndices().begin(), sprite->GetIndices().end());
+	}
+
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ibo);
+
+	glBindVertexArray(vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+	// Hard coded vector 2 float attribute
+	glEnableVertexAttribArray(Shader::pos_attrib_location);
+	glVertexAttribPointer(Shader::pos_attrib_location, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
