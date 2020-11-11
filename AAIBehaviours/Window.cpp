@@ -5,27 +5,17 @@
 
 #include <iostream>
 
-#include "Sprite.h"
-
 Window::Window(const int width, const int height)
 	: MouseObserver(SetupWindow(width, height)), window(observing), width(width), height(height)
 {
 	shader = new Shader(width, height);
 	shader->use();
 
-	Sprite* s = new Sprite();
+	sprites.push_back(new Sprite({ 100.0f,100.0f }, { 100.0f,100.0f }));
 
-	auto m = s->GetTransform();
-
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	float vertices[] = {
-		100.0f, 100.0f,
-		500.0f, 200.0f,
-		200.0f, 500.0f,
-		300.0f, 300.0f
-	};
-
-	unsigned int indices[] = { 0, 1, 3, 0, 2, 3 };
+	shader->SetTransform(sprites[0]->GetTransform());
+	auto vertices = sprites[0]->GetVertices();
+	auto indices = sprites[0]->GetIndices();
 
 	unsigned int vbo, ibo, vao;
 	glGenVertexArrays(1, &vao);
@@ -35,13 +25,14 @@ Window::Window(const int width, const int height)
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), &indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	// Hard coded vector 2 float attribute
+	glEnableVertexAttribArray(Shader::pos_attrib_location);
+	glVertexAttribPointer(Shader::pos_attrib_location, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 
 	// note that this is allowed, the call to glVertexAttribPointer registered vbo as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -67,7 +58,7 @@ int Window::Start()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Draw
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sprites[0]->GetIndices().size(), GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

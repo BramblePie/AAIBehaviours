@@ -19,19 +19,7 @@ Shader::Shader(const int width, const int height)
 	const float m_21 = -(top + bottom) / (top - bottom);
 	const float m_22 = -1.0f;
 
-	// Shader code in const chars
 	const size_t n = 400;
-	const char vertexCode[] = "#version 430 core\n"
-		"layout(location = 0) in vec2 aPos;\n"
-		"mat3 M = mat3("
-		"%f, 0.0, 0.0, "
-		"0.0, %f, 0.0, "
-		"%f, %f, %f );\n"
-		"void main()\n"
-		"{\n"
-		"	gl_Position = vec4(M * vec3(aPos, 1.0), 1.0);\n"
-		"}\n";
-
 	char* vShaderCode = new char[n]();
 	sprintf_s(vShaderCode, n, vertexCode, m_00, m_11, m_20, m_21, m_22);
 
@@ -61,7 +49,7 @@ Shader::Shader(const int width, const int height)
 
 	// Fragment Shader
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glShaderSource(fragment, 1, &fragmentCode, NULL);
 	glCompileShader(fragment);
 	// print compile errors if any
 	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
@@ -98,4 +86,9 @@ Shader::~Shader()
 void Shader::use() const
 {
 	glUseProgram(ID);
+}
+
+void Shader::SetTransform(const Matrix<float>& m) const
+{
+	glUniformMatrix3fv(M_uni_location, 1, GL_TRUE, &m.arr[0]);
 }

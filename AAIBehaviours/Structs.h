@@ -23,15 +23,41 @@ struct Vec
 {
 	T x = {};
 	T y = {};
-	T w = static_cast<T>(1);
+
+	Vec() = default;
+	Vec(T x, T y) : x(x), y(y) {}
 };
 
-template<class T>
-Vec<T> operator*(const Matrix<T>& m, const Vec<T>& v)
+namespace transform
 {
-	//return Vec<T>{
-	//	m(0, 0)* v.x + m(1, 0) * v.y + m(2, 0) * v.w,
-	//		m(0, 1)* v.x + m(1, 1) * v.y + m(2, 1) * v.w,
-	//		m(0, 2)* v.x + m(1, 2) * v.y + m(2, 2) * v.w,
-	//};
+	// Gets a translation matrix with a translation of the given vector
+	template<class T>
+	Matrix<T> translate(const Vec<T>& vertices)
+	{
+		return translate(Matrix<T>(), vertices);
+	}
+
+	// Gets the translation of the given matrix by given vector
+	template<class T>
+	Matrix<T> translate(const Matrix<T>& m, const Vec<T>& vertices)
+	{
+		Matrix<T> r = m;
+		r(0, 2) += r(0, 0) * vertices.x + r(0, 1) * vertices.y;
+		r(1, 2) += r(1, 0) * vertices.x + r(1, 1) * vertices.y;
+		r(2, 2) += r(2, 0) * vertices.x + r(2, 1) * vertices.y;
+		return r;
+	}
+
+	template<class T>
+	Matrix<T> scale(const Matrix<T>& m, const Vec<T>& s)
+	{
+		Matrix<T> r = m;
+		r(0, 0) *= s.x;
+		r(1, 0) *= s.x;
+		r(2, 0) *= s.x;
+		r(0, 1) *= s.y;
+		r(1, 1) *= s.y;
+		r(2, 1) *= s.y;
+		return r;
+	}
 }

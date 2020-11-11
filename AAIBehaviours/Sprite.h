@@ -1,27 +1,35 @@
 #pragma once
 
+#include <array>
+
 #include "Structs.h"
 
 class Sprite
 {
 public:
-	float position[2] = {};
-	float scale[2] = { 1.0f, 1.0f };
+	Vec<float> position = {};
+	Vec<float> scale = {};
 	float angle = 0.0f;
 
 	Sprite();
-	Sprite(float position[2], float angle = 0.0f);
-	Sprite(float position[2], float scale[2], float angle = 0.0f);
+	Sprite(const Vec<float>& position, float angle = 0.0f);
+	Sprite(const Vec<float>& position, const Vec<float>& scale, float angle = 0.0f);
 	~Sprite() {}
 
 	const Matrix<float> GetTransform() const;
 
+	const std::array<float, 8> GetVertices() const;
+
+	const std::array<unsigned int, 6> GetIndices() const;
+
 private:
 
-	const float v[8] = {
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		0.0f, 1.0f,
-		0.5f, 0.5f,
+	std::array<float, 8> vertices = {
+			0.0f, 0.0f,
+			1.0f, 0.0f,
+			0.0f, 1.0f,
+			0.5f, 0.5f,
 	};
+
+	std::array<unsigned int, 6> indices = { 0, 1, 3, 0, 2, 3 };
 };

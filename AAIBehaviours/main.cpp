@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+#include "Structs.h"
+
 int main()
 {
 	Window* window = new Window(1200, 800);
@@ -14,6 +16,7 @@ int main()
 	ob += f;
 
 	window->Start();
+	//system("pause");
 
 	delete window;
 }
