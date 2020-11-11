@@ -22,6 +22,10 @@ public:
 		delete shader;
 		for (auto s : sprites) delete s;
 		sprites.clear();
+
+		glDeleteBuffers(1, &vbo);
+		glDeleteBuffers(1, &ibo);
+		glDeleteVertexArrays(1, &vao);
 	}
 
 	int Start();
