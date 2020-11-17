@@ -21,6 +21,8 @@ const Matrix<float> Sprite::GetTransform() const
 	Matrix<float> r = {};
 	r = transform::translate(r, position);
 	r = transform::scale(r, scale);
+	r = transform::rotate(r, (float)-PI / 2.0f);
+
 	return r;
 }
 

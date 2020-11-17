@@ -87,6 +87,8 @@ GLFWwindow* Window::SetupWindow(const int w, const int h)
 		else
 			glEnable(GL_MULTISAMPLE);
 	}
+
+	window = attempt;
 	return attempt;
 }
 
