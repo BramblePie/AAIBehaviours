@@ -150,13 +150,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MouseObserver.cpp" />
+    <ClCompile Include="MouseObservable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MouseObserver.h" />
+    <ClInclude Include="IMouseObserver.h" />
+    <ClInclude Include="MouseObservable.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Structs.h" />

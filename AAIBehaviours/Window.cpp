@@ -6,13 +6,15 @@
 #include <iostream>
 
 Window::Window(const int width, const int height)
-	: MouseObserver(SetupWindow(width, height)), window(observing), width(width), height(height)
+	: MouseObservalbe(SetupWindow(width, height)), window(observing), width(width), height(height)
 {
 	shader = new Shader(width, height);
 	shader->use();
 
 	sprites.push_back(new Sprite({ 100.0f,100.0f }, { 100.0f,100.0f }));
 	sprites.push_back(new Sprite({ 400.0f,200.0f }, { 160.0f,160.0f }));
+
+	(*this) += sprites[0];
 
 	initBuffers();
 }
@@ -42,7 +44,7 @@ int Window::Start()
 		for (auto s : sprites)
 		{
 			shader->SetTransform(s->GetTransform());
-			size = s->GetIndices().size();
+			size = (unsigned int)s->GetIndices().size();
 			glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
 			i_off += size;
 		}

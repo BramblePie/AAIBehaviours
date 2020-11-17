@@ -1,5 +1,7 @@
 #include "Sprite.h"
 
+#include <iostream>
+
 Sprite::Sprite()
 {
 }
@@ -30,4 +32,14 @@ const std::vector<float>& Sprite::GetVertices() const
 const std::vector<unsigned int>& Sprite::GetIndices() const
 {
 	return indices;
+}
+
+void Sprite::OnMovement(const int x, const int y)
+{
+	//printf("OnMovement {%d, %d}\n", x, y);
+}
+
+void Sprite::OnAction(const int button, const int action, const int mod, const int x, const int y)
+{
+	printf("OnAction %d, %d %c : {%d, %d}\n", button, mod, action ? 'P' : 'R', x, y);
 }

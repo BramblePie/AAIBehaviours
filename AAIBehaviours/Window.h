@@ -6,10 +6,10 @@
 #include <vector>
 
 #include "Shader.h"
-#include "MouseObserver.h"
+#include "MouseObservable.h"
 #include "Sprite.h"
 
-class Window : public MouseObserver
+class Window : public MouseObservalbe
 {
 public:
 	std::vector<Sprite*> sprites;

@@ -3,8 +3,9 @@
 #include <vector>
 
 #include "Structs.h"
+#include "IMouseObserver.h"
 
-class Sprite
+class Sprite : public IMouseObserver
 {
 public:
 	Vec<float> position = {};
@@ -32,4 +33,8 @@ private:
 	};
 
 	std::vector<unsigned int> indices = { 0, 1, 3, 0, 2, 3 };
+
+	// Inherited via IMouseObserver
+	virtual void OnMovement(const int x, const int y) override;
+	virtual void OnAction(const int button, const int action, const int mod, const int x, const int y) override;
 };
