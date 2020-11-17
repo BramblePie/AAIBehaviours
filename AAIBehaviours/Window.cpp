@@ -6,7 +6,7 @@
 #include <iostream>
 
 Window::Window(const int width, const int height)
-	: MouseObservalbe(SetupWindow(width, height)), window(observing), width(width), height(height)
+	: MouseObservable(SetupWindow(width, height)), width(width), height(height)
 {
 	shader = new Shader(width, height);
 	shader->use();

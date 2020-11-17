@@ -2,32 +2,31 @@
 
 #include <iostream>
 
-MouseObservalbe::MouseObservalbe(GLFWwindow* observing)
-	: observing(observing)
+MouseObservable::MouseObservable(GLFWwindow* observing)
 {
 	// Set user pointer to this instance of KeyBinding
 	glfwSetWindowUserPointer(observing, this);
 
 	glfwSetCursorPosCallback(observing,
 		[](GLFWwindow* target, const double xpos, const double ypos) {
-			static_cast<MouseObservalbe*>(glfwGetWindowUserPointer(target))
+			static_cast<MouseObservable*>(glfwGetWindowUserPointer(target))
 				->pos_callback(target, (int)xpos, (int)ypos);
 		});
 
 	glfwSetMouseButtonCallback(observing,
 		[](GLFWwindow* target, const int button, const int action, const int mod) {
-			static_cast<MouseObservalbe*>(glfwGetWindowUserPointer(target))
+			static_cast<MouseObservable*>(glfwGetWindowUserPointer(target))
 				->button_callback(target, button, action, mod);
 		});
 }
 
-void MouseObservalbe::pos_callback(GLFWwindow* target, const int xpos, const int ypos)
+void MouseObservable::pos_callback(GLFWwindow* target, const int xpos, const int ypos)
 {
 	for (auto ob : observers)
 		ob->OnMovement(xpos, ypos);
 }
 
-void MouseObservalbe::button_callback(GLFWwindow* target, const int button, const int action, const int mod)
+void MouseObservable::button_callback(GLFWwindow* target, const int button, const int action, const int mod)
 {
 	double x, y;
 	glfwGetCursorPos(target, &x, &y);

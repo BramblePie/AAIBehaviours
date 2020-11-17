@@ -9,12 +9,13 @@
 
 #include "IMouseObserver.h"
 
-class MouseObservalbe
+class MouseObservable
 {
 public:
-	MouseObservalbe(const MouseObservalbe& mo) = delete;
-	~MouseObservalbe()
+	MouseObservable(const MouseObservable& mo) = delete;
+	~MouseObservable()
 	{
+		observers.clear();
 	}
 
 	inline void operator+=(IMouseObserver* observer) const
@@ -23,10 +24,8 @@ public:
 	}
 
 protected:
-	MouseObservalbe(GLFWwindow* observing);
+	MouseObservable(GLFWwindow* observing);
 
-	// Target window given to observe
-	GLFWwindow* observing;
 private:
 
 	mutable std::vector<IMouseObserver*> observers;

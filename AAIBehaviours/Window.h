@@ -9,7 +9,7 @@
 #include "MouseObservable.h"
 #include "Sprite.h"
 
-class Window : public MouseObservalbe
+class Window : public MouseObservable
 {
 public:
 	std::vector<Sprite*> sprites;
