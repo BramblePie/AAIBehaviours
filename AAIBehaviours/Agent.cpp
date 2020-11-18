@@ -1,5 +1,10 @@
 #include "Agent.h"
 
+void Agent::ProcessBehaviour()
+{
+	speed = behaviour->CalculateBehaviour(*this);
+}
+
 void Agent::OnMovement(const int x, const int y)
 {
 	//printf("OnMovement {%d, %d}\n", x, y);

@@ -16,7 +16,6 @@ Window::Window(const int width, const int height)
 	auto agent = new Agent();
 	subscribe(agent);
 	sprites.push_back(agent);
-	//sprites.push_back(new Agent());
 
 	initBuffers();
 }
@@ -100,8 +99,8 @@ void Window::initBuffers()
 	std::vector<unsigned int> indices;
 	for (auto sprite : sprites)
 	{
-		vertices.insert(vertices.end(), sprite->GetVertices().begin(), sprite->GetVertices().end());
-		indices.insert(indices.end(), sprite->GetIndices().begin(), sprite->GetIndices().end());
+		vertices.insert(vertices.end(), sprite->GetVertices());
+		indices.insert(indices.end(), sprite->GetIndices());
 	}
 
 	glGenVertexArrays(1, &vao);

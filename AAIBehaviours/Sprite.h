@@ -8,6 +8,7 @@ class Sprite
 {
 public:
 	Vec<float> position = {};
+	Vec<float> speed = {};
 	Vec<float> scale = {};
 	float angle = 0.0f;
 
