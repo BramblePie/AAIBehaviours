@@ -5,16 +5,18 @@
 
 #include <iostream>
 
+#include "Agent.h"
+
 Window::Window(const int width, const int height)
 	: MouseObservable(SetupWindow(width, height)), width(width), height(height)
 {
 	shader = new Shader(width, height);
 	shader->use();
 
-	sprites.push_back(new Sprite({ 100.0f,100.0f }, { 100.0f,100.0f }));
-	sprites.push_back(new Sprite({ 400.0f,200.0f }, { 160.0f,160.0f }));
-
-	(*this) += sprites[0];
+	auto agent = new Agent();
+	subscribe(agent);
+	sprites.push_back(agent);
+	//sprites.push_back(new Agent());
 
 	initBuffers();
 }

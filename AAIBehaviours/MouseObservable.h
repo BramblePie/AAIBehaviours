@@ -18,7 +18,7 @@ public:
 		observers.clear();
 	}
 
-	inline void operator+=(IMouseObserver* observer) const
+	inline void subscribe(IMouseObserver* observer) const
 	{
 		observers.push_back(observer);
 	}

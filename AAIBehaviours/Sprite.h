@@ -3,9 +3,8 @@
 #include <vector>
 
 #include "Structs.h"
-#include "IMouseObserver.h"
 
-class Sprite : public IMouseObserver
+class Sprite
 {
 public:
 	Vec<float> position = {};
@@ -15,26 +14,25 @@ public:
 	Sprite();
 	Sprite(const Vec<float>& position, float angle = 0.0f);
 	Sprite(const Vec<float>& position, const Vec<float>& scale, float angle = 0.0f);
-	~Sprite() {}
+	virtual ~Sprite() {}
 
 	const Matrix<float> GetTransform() const;
 
-	const std::vector<float>& GetVertices() const;
+	virtual const std::initializer_list<float>& GetVertices() const {
+		static const std::initializer_list<float> vertices = {
+			0.0f, 0.0f,
+			-0.25f, 0.5f,
+			0.25f, 0.5f,
+			0.0f, 0.3f,
+		};
 
-	const std::vector<unsigned int>& GetIndices() const;
+		return vertices;
+	}
+
+	virtual const std::initializer_list<unsigned int>& GetIndices() const {
+		static const std::initializer_list<unsigned int> indices = { 0, 1, 3, 0, 2, 3 };
+		return indices;
+	}
 
 private:
-
-	std::vector<float> vertices = {
-			0.0f, 0.0f,
-			1.0f, 0.0f,
-			0.0f, 1.0f,
-			0.5f, 0.5f,
-	};
-
-	std::vector<unsigned int> indices = { 0, 1, 3, 0, 2, 3 };
-
-	// Inherited via IMouseObserver
-	virtual void OnMovement(const int x, const int y) override;
-	virtual void OnAction(const int button, const int action, const int mod, const int x, const int y) override;
 };
