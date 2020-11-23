@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 constexpr double PI = 3.141592653589793238462643383279502884;
 
 template<class T>
@@ -29,11 +31,67 @@ struct Vec
 	Vec() = default;
 	Vec(T x, T y) : x(x), y(y) {}
 
-	inline Vec<T> operator*(const T scaler)
+	template<class U>
+	constexpr Vec<T> operator*(const U scaler)
 	{
-		return Vec<T>(x * scaler, y * scaler);
+		return Vec<T>(x * static_cast<T>(scaler), y * static_cast<T>(scaler));
+	}
+	template<class U>
+	constexpr Vec<T> operator/(const U scaler)
+	{
+		return Vec<T>(x / static_cast<T>(scaler), y / static_cast<T>(scaler));
+	}
+
+	template<class U>
+	constexpr Vec<T>& operator*=(const U scaler)
+	{
+		x *= static_cast<T>(scaler);
+		y *= static_cast<T>(scaler);
+		return *this;
+	}
+
+	template<class U>
+	constexpr Vec<T>& operator+=(const Vec<U>& other)
+	{
+		x += static_cast<T>(other.x);
+		y += static_cast<T>(other.y);
+		return *this;
+	}
+	template<class U>
+	constexpr Vec<T>& operator-=(const Vec<T>& other)
+	{
+		x -= static_cast<T>(other.x);
+		y -= static_cast<T>(other.y);
+		return *this;
+	}
+
+	constexpr Vec<T>& truncate(const T v)
+	{
+		return normalize() *= v;
+	}
+
+	constexpr Vec<T>& normalize()
+	{
+		T d = std::sqrt(x * x + y * y);
+		if (d > static_cast<T>(0))
+		{
+			x /= d;
+			y /= d;
+		}
+		return *this;
 	}
 };
+
+template<class T>
+constexpr Vec<T> operator-(const Vec<T>& l, const Vec<T>& r)
+{
+	return Vec<T>(l.x - r.x, l.y - r.y);
+}
+template<class T>
+constexpr Vec<T> operator+(const Vec<T>& l, const Vec<T>& r)
+{
+	return Vec<T>(l.x + r.x, l.y + r.y);
+}
 
 template<class T>
 Matrix<T> operator*(const Matrix<T>& l, const Matrix<T>& r)
@@ -54,15 +112,15 @@ Matrix<T> operator*(const Matrix<T>& l, const Matrix<T>& r)
 namespace transform
 {
 	// Gets a translation matrix with a translation of the given vector
-	template<class T>
-	Matrix<T> translate(const Vec<T>& vertices)
+	template<class T, class U>
+	Matrix<T> translate(const Vec<U>& vertices)
 	{
 		return translate(Matrix<T>(), vertices);
 	}
 
 	// Gets the translation of the given matrix by given vector
-	template<class T>
-	Matrix<T> translate(const Matrix<T>& m, const Vec<T>& vertices)
+	template<class T, class U>
+	Matrix<T> translate(const Matrix<T>& m, const Vec<U>& vertices)
 	{
 		Matrix<T> r = m;
 		r(0, 2) += r(0, 0) * vertices.x + r(0, 1) * vertices.y;
@@ -90,8 +148,8 @@ namespace transform
 		return r;
 	}
 
-	template<class T>
-	Matrix<T> rotate(const Matrix<T>& m, const T angle)
+	template<class T, class U>
+	Matrix<T> rotate(const Matrix<T>& m, const U angle)
 	{
 		const T c = static_cast<T>(cos(angle));
 		const T s = static_cast<T>(sin(angle));

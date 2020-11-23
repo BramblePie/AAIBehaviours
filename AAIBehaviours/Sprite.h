@@ -7,14 +7,13 @@
 class Sprite
 {
 public:
-	Vec<float> position = {};
-	Vec<float> speed = {};
+	Vec<double> position = {};
 	Vec<float> scale = {};
-	float angle = 0.0f;
+	double angle = 0.0f;
 
 	Sprite();
-	Sprite(const Vec<float>& position, float angle = 0.0f);
-	Sprite(const Vec<float>& position, const Vec<float>& scale, float angle = 0.0f);
+	Sprite(const Vec<double>& position, double angle);
+	Sprite(const Vec<double>& position, const Vec<float>& scale, double angle);
 	virtual ~Sprite() {}
 
 	const Matrix<float> GetTransform() const;

@@ -16,6 +16,7 @@ Window::Window(const int width, const int height)
 	auto agent = new Agent();
 	subscribe(agent);
 	sprites.push_back(agent);
+	agents.push_back(agent);
 
 	initBuffers();
 }
@@ -25,15 +26,19 @@ int Window::Start()
 	if (window == NULL)
 		return -1;
 
-	float delta = 0.0f;	// Time between current frame and last frame
-	float time = 0.0f;
-	float lastFrame = 0.0f; // Time of last frame
+	double delta = 0.0f;	// Time between current frame and last frame
+	double time = 0.0f;
+	double lastFrame = 0.0f; // Time of last frame
 
 	while (!glfwWindowShouldClose(window))
 	{
-		time = (float)glfwGetTime();
+		time = glfwGetTime();
 		delta = time - lastFrame;
 		lastFrame = time;
+
+		// Processing
+		for (auto a : agents)
+			a->ProcessBehaviour(delta);
 
 		// Clear current frame buffer
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);

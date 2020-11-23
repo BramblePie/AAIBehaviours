@@ -6,12 +6,12 @@ Sprite::Sprite()
 {
 }
 
-Sprite::Sprite(const Vec<float>& position, float angle)
+Sprite::Sprite(const Vec<double>& position, double angle = 0.0f)
 	: position(position), angle(angle)
 {
 }
 
-Sprite::Sprite(const Vec<float>& position, const Vec<float>& scale, float angle)
+Sprite::Sprite(const Vec<double>& position, const Vec<float>& scale, double angle = 0.0)
 	: position(position), scale(scale), angle(angle)
 {
 }

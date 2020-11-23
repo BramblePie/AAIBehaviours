@@ -11,5 +11,5 @@ public:
 	/// Calculate progression of behaviour
 	/// </summary>
 	/// <returns>Desired speed</returns>
-	virtual Vec<float> CalculateBehaviour(const Agent& agent) = 0;
+	virtual Vec<double> CalculateBehaviour(const Agent& agent) = 0;
 };

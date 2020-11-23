@@ -9,5 +9,5 @@ public:
 private:
 
 	// Inherited via IBehaviour
-	virtual Vec<float> CalculateBehaviour(const Agent& agent) override;
+	virtual Vec<double> CalculateBehaviour(const Agent& agent) override;
 };

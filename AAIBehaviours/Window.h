@@ -7,12 +7,13 @@
 
 #include "Shader.h"
 #include "MouseObservable.h"
-#include "Sprite.h"
+#include "Agent.h"
 
 class Window : public MouseObservable
 {
 public:
 	std::vector<Sprite*> sprites;
+	std::vector<Agent*> agents;
 
 	Window(const int width, const int height);
 	Window(const Window& w) = delete;
@@ -22,6 +23,7 @@ public:
 		delete shader;
 		for (auto s : sprites) delete s;
 		sprites.clear();
+		agents.clear();
 
 		glDeleteBuffers(1, &vbo);
 		glDeleteBuffers(1, &ibo);

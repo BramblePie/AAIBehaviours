@@ -1,6 +1,8 @@
 #include "SeekBehaviour.h"
+#include "Agent.h"
 
-Vec<float> SeekBehaviour::CalculateBehaviour(const Agent& agent)
+Vec<double> SeekBehaviour::CalculateBehaviour(const Agent& agent)
 {
-    return Vec<float>();
+	Vec<double> dV = (agent.target - agent.position).normalize() * agent.maxSpeed;
+	return dV - agent.velocity;
 }
