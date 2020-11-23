@@ -68,18 +68,15 @@ struct Vec
 	constexpr Vec<T>& truncate(const T v)
 	{
 		if (x * x + y * y > v * v)
-			return normalize() *= v;
+			return normalized() *= v;
 		return *this;
 	}
 
-	constexpr Vec<T>& normalize()
+	constexpr Vec<T> normalized()
 	{
 		T d = std::sqrt(x * x + y * y);
 		if (d > static_cast<T>(0))
-		{
-			x /= d;
-			y /= d;
-		}
+			return Vec<T>(x / d, y / d);
 		return *this;
 	}
 };

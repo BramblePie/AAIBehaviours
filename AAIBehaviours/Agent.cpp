@@ -8,6 +8,8 @@ void Agent::ProcessBehaviour(const float delta)
 	velocity.truncate(maxSpeed);
 	position += velocity * delta;
 	printf("v = %f, %f\n", velocity.x, velocity.y);
+
+	heading = velocity.normalized();
 }
 
 void Agent::OnMovement(const int x, const int y)

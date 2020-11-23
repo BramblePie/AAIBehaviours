@@ -3,6 +3,6 @@
 
 Vec<double> SeekBehaviour::CalculateBehaviour(const Agent& agent)
 {
-	Vec<double> dV = (agent.target - agent.position).normalize() * agent.maxSpeed;
+	Vec<double> dV = (agent.target - agent.position).normalized() * agent.maxSpeed;
 	return dV - agent.velocity;
 }
