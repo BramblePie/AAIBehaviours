@@ -19,5 +19,5 @@ void Agent::OnAction(const int button, const int action, const int mod, const in
 {
 	//printf("OnAction %d, %d %c : {%d, %d}\n", button, mod, action ? 'P' : 'R', x, y);
 	target = Vec<double>(x, y);
-	printf("Target set to { %d, %d}", x, x);
+	printf("Target set to { %d, %d}\n", x, x);
 }

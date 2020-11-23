@@ -13,9 +13,9 @@ public:
 	Vec<double> velocity = {};
 	Vec<double> heading = {};
 	Vec<double> right = {};
-	double mass = 0.1f;
-	double maxSpeed = 200.0f;
-	double maxTurn = 0.1f;
+	double mass = 1.0;
+	double maxSpeed = 200.0;
+	double maxTurn = 0.1;
 	Vec<double> target = {};
 
 	Agent() : Sprite({ 0.0,0.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())

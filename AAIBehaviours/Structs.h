@@ -67,7 +67,9 @@ struct Vec
 
 	constexpr Vec<T>& truncate(const T v)
 	{
-		return normalize() *= v;
+		if (x * x + y * y > v * v)
+			return normalize() *= v;
+		return *this;
 	}
 
 	constexpr Vec<T>& normalize()
