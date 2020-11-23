@@ -2,8 +2,7 @@
 
 #include "Sprite.h"
 #include "IMouseObserver.h"
-#include "IBehaviour.h"
-#include "SeekBehaviour.h"
+#include "Behaviours.h"
 
 class Agent : public Sprite, public IMouseObserver
 {
@@ -18,7 +17,7 @@ public:
 	double maxTurn = 0.1;
 	Vec<double> target = {};
 
-	Agent() : Sprite({ 0.0,0.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
+	Agent() : Sprite({ 500.0,500.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
 	{
 	}
 
