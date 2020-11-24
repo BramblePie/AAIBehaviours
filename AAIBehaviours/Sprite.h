@@ -2,21 +2,21 @@
 
 #include <vector>
 
-#include "Structs.h"
+#include <glm/glm.hpp>
 
 class Sprite
 {
 public:
-	Vec<double> position = {};
-	Vec<float> scale = {};
+	glm::dvec2 position = {};
+	glm::vec2 scale = {};
 	double angle = 0.0f;
 
 	Sprite();
-	Sprite(const Vec<double>& position, double angle);
-	Sprite(const Vec<double>& position, const Vec<float>& scale, double angle);
+	Sprite(const glm::dvec2 position, double angle);
+	Sprite(const glm::dvec2 position, const glm::vec2 scale, double angle);
 	virtual ~Sprite() {}
 
-	const Matrix<float> GetTransform() const;
+	const glm::mat4 GetTransform() const;
 
 	virtual const std::initializer_list<float>& GetVertices() const {
 		static const std::initializer_list<float> vertices = {

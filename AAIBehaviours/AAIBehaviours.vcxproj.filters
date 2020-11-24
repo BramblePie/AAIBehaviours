@@ -56,9 +56,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MouseObservable.h">
       <Filter>Header Files</Filter>
     </ClInclude>

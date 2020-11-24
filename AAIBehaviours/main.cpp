@@ -2,8 +2,6 @@
 
 #include "Window.h"
 
-#include "Structs.h"
-
 int main()
 {
 	Window* window = new Window(1200, 800);

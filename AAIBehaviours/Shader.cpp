@@ -5,31 +5,10 @@
 
 #include <iostream>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 Shader::Shader(const int width, const int height)
 {
-	// Hard code simple projection to pixels
-	const float right = (float)width;
-	const float left = 0.0f;
-	const float top = 0.0f;
-	const float bottom = (float)height;
-
-	const float m_00 = 2.0f / (right - left);
-	const float m_11 = 2.0f / (top - bottom);
-	const float m_20 = -(right + left) / (right - left);
-	const float m_21 = -(top + bottom) / (top - bottom);
-	const float m_22 = -1.0f;
-
-	const size_t n = 400;
-	char* vShaderCode = new char[n]();
-	sprintf_s(vShaderCode, n, vertexCode, m_00, m_11, m_20, m_21, m_22);
-
-	const char* fShaderCode = "#version 430 core\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"	FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
-		"}\n";
-
 	// Compile shader
 	unsigned int vertex, fragment;
 	int success;
@@ -37,7 +16,7 @@ Shader::Shader(const int width, const int height)
 
 	// Vertex Shader
 	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glShaderSource(vertex, 1, &vertexCode, NULL);
 	glCompileShader(vertex);
 	// print compile errors if any
 	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
@@ -75,7 +54,11 @@ Shader::Shader(const int width, const int height)
 	// delete the shaders as they're linked into our program now and no longer necessery
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-	delete[] vShaderCode;
+
+	use();
+
+	glm::mat4 PV = glm::ortho(0.0f, (float)width, (float)height, 0.0f);
+	glUniformMatrix4fv(PV_uni_location, 1, GL_FALSE, &PV[0][0]);
 }
 
 Shader::~Shader()
@@ -88,7 +71,7 @@ void Shader::use() const
 	glUseProgram(ID);
 }
 
-void Shader::SetTransform(const Matrix<float>& m) const
+void Shader::SetTransform(const glm::mat4& m) const
 {
-	glUniformMatrix3fv(M_uni_location, 1, GL_TRUE, &m.arr[0]);
+	glUniformMatrix4fv(M_uni_location, 1, GL_FALSE, &m[0][0]);
 }

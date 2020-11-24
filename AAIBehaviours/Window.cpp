@@ -11,7 +11,6 @@ Window::Window(const int width, const int height)
 	: MouseObservable(SetupWindow(width, height)), width(width), height(height)
 {
 	shader = new Shader(width, height);
-	shader->use();
 
 	auto agent = new Agent();
 	subscribe(agent);

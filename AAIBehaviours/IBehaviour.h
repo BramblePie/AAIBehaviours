@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Structs.h"
+#include <glm/vec2.hpp>
 
 class Agent;
 
@@ -11,5 +11,5 @@ public:
 	/// Calculate progression of behaviour
 	/// </summary>
 	/// <returns>Desired speed</returns>
-	virtual Vec<double> CalculateBehaviour(const Agent& agent) = 0;
+	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) = 0;
 };

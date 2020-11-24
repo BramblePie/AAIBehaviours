@@ -9,5 +9,5 @@ public:
 private:
 
 	// Inherited via IBehaviour
-	virtual Vec<double> CalculateBehaviour(const Agent& agent) override;
+	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) override;
 };

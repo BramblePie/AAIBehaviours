@@ -9,13 +9,13 @@ class Agent : public Sprite, public IMouseObserver
 public:
 	IBehaviour* behaviour;
 
-	Vec<double> velocity = {};
-	Vec<double> heading = {};
-	Vec<double> right = {};
+	glm::dvec2 velocity = {};
+	glm::dvec2 heading = {};
+	glm::dvec2 right = {};
 	double mass = 1.0;
 	double maxSpeed = 200.0;
 	double maxTurn = 0.1;
-	Vec<double> target = {};
+	glm::dvec2 target = {};
 
 	Agent() : Sprite({ 500.0,500.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
 	{
@@ -38,7 +38,7 @@ public:
 		return vertices;
 	}
 
-	void ProcessBehaviour(const float delta);
+	void ProcessBehaviour(const double delta);
 
 private:
 
