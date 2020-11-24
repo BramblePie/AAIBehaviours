@@ -1,5 +1,7 @@
 #include "Agent.h"
 
+#include <glm/gtx/vector_angle.hpp>
+
 void Agent::ProcessBehaviour(const double delta)
 {
 	auto f = behaviour->CalculateBehaviour(*this);
@@ -9,9 +11,9 @@ void Agent::ProcessBehaviour(const double delta)
 		velocity = (velocity / sp) * maxSpeed;
 
 	position += velocity * delta;
-	printf("v = %f, %f\n", velocity.x, velocity.y);
 
 	heading = glm::normalize(velocity);
+	angle = glm::orientedAngle(glm::dvec2(0.0, -1.0), heading);
 }
 
 void Agent::OnMovement(const int x, const int y)
@@ -23,5 +25,6 @@ void Agent::OnAction(const int button, const int action, const int mod, const in
 {
 	//printf("OnAction %d, %d %c : {%d, %d}\n", button, mod, action ? 'P' : 'R', x, y);
 	target = glm::dvec2(x, y);
-	printf("Target set to { %d, %d}\n", x, x);
+	if (action)
+		printf("Target set to { %d, %d}\n", x, y);
 }
