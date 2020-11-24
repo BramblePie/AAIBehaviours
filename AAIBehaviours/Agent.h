@@ -17,7 +17,7 @@ public:
 	double maxTurn = 0.1;
 	glm::dvec2 target = {};
 
-	Agent() : Sprite({ 10.0,90.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
+	Agent() : Sprite({ 0.0,0.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
 	{
 	}
 

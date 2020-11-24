@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+#include <glm/glm.hpp>
+
 int main()
 {
 	Window* window = new Window(1200, 800);
