@@ -150,10 +150,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="FleeBehaviour.cpp" />
+    <ClCompile Include="Behaviours.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseObservable.cpp" />
-    <ClCompile Include="SeekBehaviour.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -161,11 +160,9 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviours.h" />
-    <ClInclude Include="FleeBehaviour.h" />
     <ClInclude Include="IBehaviour.h" />
     <ClInclude Include="IMouseObserver.h" />
     <ClInclude Include="MouseObservable.h" />
-    <ClInclude Include="SeekBehaviour.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Window.h" />
