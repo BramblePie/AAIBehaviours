@@ -36,3 +36,8 @@ glm::dvec2 ArriveBehaviour::CalculateBehaviour(const Agent& agent)
 
 	return glm::dvec2();
 }
+
+glm::dvec2 PursuitBehaviour::CalculateBehaviour(const Agent& agent)
+{
+	return glm::dvec2();
+}

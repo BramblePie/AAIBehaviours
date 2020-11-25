@@ -14,14 +14,17 @@ public:
 	glm::dvec2 right = glm::dvec2(0.0, 1.0);
 	double mass = 1.0;
 	double maxSpeed = 200.0;
+	double maxForce = 50.0;
 	double maxTurn = 0.1;
 
-	// Behaviour context
+	// ---- Behaviour context ----
 
 	glm::dvec2 target = glm::dvec2(0.0);
+	Sprite* prey;
 	ArriveBehaviour::Deceleration deceleration = ArriveBehaviour::Deceleration::normal;
 
 	Agent(IBehaviour* behaviour);
+	Agent(IBehaviour* behaviour, Sprite* prey);
 
 	virtual ~Agent()
 	{
