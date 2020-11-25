@@ -2,6 +2,11 @@
 
 #include <glm/gtx/vector_angle.hpp>
 
+Agent::Agent(IBehaviour* behaviour)
+	: Sprite({ 1.0,1.0 }, glm::vec2(100.0)), behaviour(behaviour)
+{
+}
+
 void Agent::ProcessBehaviour(const double delta)
 {
 	auto f = behaviour->CalculateBehaviour(*this);
@@ -30,5 +35,5 @@ void Agent::OnAction(const int button, const int action, const int mod, const in
 	//printf("OnAction %d, %d %c : {%d, %d}\n", button, mod, action ? 'P' : 'R', x, y);
 	target = glm::dvec2(x, y);
 	if (action)
-		printf("Target set to { %d, %d}\n", x, y);
+		printf("Target(%p) set to { %d, %d }\n", this, x, y);
 }

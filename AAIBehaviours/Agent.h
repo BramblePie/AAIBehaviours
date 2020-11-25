@@ -21,9 +21,7 @@ public:
 	glm::dvec2 target = glm::dvec2(0.0);
 	ArriveBehaviour::Deceleration deceleration = ArriveBehaviour::Deceleration::normal;
 
-	Agent() : Sprite({ 1.0,1.0 }, glm::vec2(100.0)), behaviour(new ArriveBehaviour())
-	{
-	}
+	Agent(IBehaviour* behaviour);
 
 	virtual ~Agent()
 	{

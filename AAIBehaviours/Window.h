@@ -12,8 +12,6 @@
 class Window : public MouseObservable
 {
 public:
-	std::vector<Sprite*> sprites;
-	std::vector<Agent*> agents;
 
 	Window(const int width, const int height);
 	Window(const Window& w) = delete;
@@ -32,12 +30,17 @@ public:
 
 	int Start();
 
+	void AddAgent(Agent* agent);
+
 private:
 	GLFWwindow* window;
 
 	Shader* shader;
 
 	int width, height;
+
+	std::vector<Sprite*> sprites;
+	std::vector<Agent*> agents;
 
 	GLFWwindow* SetupWindow(const int w, const int h);
 

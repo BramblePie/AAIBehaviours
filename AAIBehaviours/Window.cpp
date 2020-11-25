@@ -11,19 +11,14 @@ Window::Window(const int width, const int height)
 	: MouseObservable(SetupWindow(width, height)), width(width), height(height)
 {
 	shader = new Shader(width, height);
-
-	auto agent = new Agent();
-	subscribe(agent);
-	sprites.push_back(agent);
-	agents.push_back(agent);
-
-	initBuffers();
 }
 
 int Window::Start()
 {
 	if (window == NULL)
 		return -1;
+
+	initBuffers();
 
 	double delta = 0.0f;	// Time between current frame and last frame
 	double time = 0.0f;
@@ -59,6 +54,13 @@ int Window::Start()
 	}
 
 	return 0;
+}
+
+void Window::AddAgent(Agent* agent)
+{
+	subscribe(agent);
+	sprites.push_back(agent);
+	agents.push_back(agent);
 }
 
 GLFWwindow* Window::SetupWindow(const int w, const int h)
