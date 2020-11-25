@@ -17,25 +17,13 @@ public:
 	double maxTurn = 0.1;
 	glm::dvec2 target = {};
 
-	Agent() : Sprite({ 0.0,0.0 }, { 100.0f,100.0f }, 0.0), behaviour(new SeekBehaviour())
+	Agent() : Sprite({ 1.0,1.0 }, glm::vec2(100.0)), behaviour(new SeekBehaviour())
 	{
 	}
 
 	virtual ~Agent()
 	{
 		delete behaviour;
-	}
-
-	virtual const std::initializer_list<float>& GetVertices() const
-	{
-		static const std::initializer_list<float> vertices = {
-			0.0f, 0.0f,
-			-0.25f, 0.5f,
-			0.25f, 0.5f,
-			0.0f, 0.3f,
-		};
-
-		return vertices;
 	}
 
 	void ProcessBehaviour(const double delta);

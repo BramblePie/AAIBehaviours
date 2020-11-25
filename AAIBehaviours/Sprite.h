@@ -9,30 +9,25 @@ class Sprite
 public:
 	glm::dvec2 position = {};
 	glm::vec2 scale = {};
-	double angle = 0.0f;
+	double angle = 0.0;
 
 	Sprite();
-	Sprite(const glm::dvec2 position, double angle);
-	Sprite(const glm::dvec2 position, const glm::vec2 scale, double angle);
+	Sprite(const glm::dvec2 position, double angle = 0.0);
+	Sprite(const glm::dvec2 position, const glm::vec2 scale, double angle = 0.0);
 	virtual ~Sprite() {}
 
 	const glm::mat4 GetTransform() const;
 
-	virtual const std::initializer_list<float>& GetVertices() const {
-		static const std::initializer_list<float> vertices = {
-			0.0f, 0.0f,
-			-0.25f, 0.5f,
-			0.25f, 0.5f,
-			0.0f, 0.3f,
-		};
+	inline const std::vector<float>& GetVertices() const { return vertices; }
 
-		return vertices;
-	}
+	inline const std::vector<unsigned int>& GetIndices() const { return indices; }
 
-	virtual const std::initializer_list<unsigned int>& GetIndices() const {
-		static const std::initializer_list<unsigned int> indices = { 0, 1, 3, 0, 2, 3 };
-		return indices;
-	}
+protected:
+
+	void SetVertices(std::initializer_list<float> list);
+	void SetIndices(std::initializer_list<unsigned int> list);
 
 private:
+	std::vector<float> vertices;
+	std::vector<unsigned int> indices;
 };

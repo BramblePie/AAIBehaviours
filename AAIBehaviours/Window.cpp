@@ -103,8 +103,8 @@ void Window::initBuffers()
 	std::vector<unsigned int> indices;
 	for (auto sprite : sprites)
 	{
-		vertices.insert(vertices.end(), sprite->GetVertices());
-		indices.insert(indices.end(), sprite->GetIndices());
+		vertices.insert(std::end(vertices), std::begin(sprite->GetVertices()), std::end(sprite->GetVertices()));
+		indices.insert(std::end(indices), std::begin(sprite->GetIndices()), std::end(sprite->GetIndices()));
 	}
 
 	glGenVertexArrays(1, &vao);
