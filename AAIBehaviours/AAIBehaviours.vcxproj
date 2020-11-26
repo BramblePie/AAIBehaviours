@@ -161,6 +161,7 @@
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviours.h" />
     <ClInclude Include="IBehaviour.h" />
+    <ClInclude Include="IEntity.h" />
     <ClInclude Include="IMouseObserver.h" />
     <ClInclude Include="MouseObservable.h" />
     <ClInclude Include="Shader.h" />

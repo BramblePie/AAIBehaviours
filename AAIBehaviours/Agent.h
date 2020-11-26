@@ -33,6 +33,10 @@ public:
 
 	void ProcessBehaviour(const double delta);
 
+	// Inherited via IEntity
+
+	virtual bool HasController() const override { return true; }
+
 private:
 
 	// Inherited via IMouseObserver

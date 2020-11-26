@@ -68,5 +68,8 @@
     <ClInclude Include="Behaviours.h">
       <Filter>Header Files\Behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

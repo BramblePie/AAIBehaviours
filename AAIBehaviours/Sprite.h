@@ -4,7 +4,9 @@
 
 #include <glm/glm.hpp>
 
-class Sprite
+#include "IEntity.h"
+
+class Sprite : public IEntity
 {
 public:
 	glm::dvec2 position = {};
@@ -22,6 +24,10 @@ public:
 
 	inline const std::vector<unsigned int>& GetIndices() const { return indices; }
 
+	// Inherited via IEntity
+
+	virtual bool IsDrawable() const override { return true; }
+	virtual bool HasController() const override { return false; }
 protected:
 
 	void SetVertices(std::initializer_list<float> list);

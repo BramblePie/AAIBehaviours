@@ -22,7 +22,7 @@ Sprite::Sprite(const glm::dvec2 position, const glm::vec2 scale, double angle)
 						-0.25f, 0.5f,
 						0.25f, 0.5f,
 						0.0f, 0.3f
-					});
+		});
 	indices.insert(std::begin(indices), { 0, 1, 3, 0, 2, 3 });
 }
 

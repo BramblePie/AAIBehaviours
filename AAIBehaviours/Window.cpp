@@ -31,8 +31,9 @@ int Window::Start()
 		lastFrame = time;
 
 		// Processing
-		for (auto a : agents)
-			a->ProcessBehaviour(delta);
+		for (IEntity* e : entities)
+			if (e->HasController(); Agent * a = (Agent*)e)
+				a->ProcessBehaviour(delta);
 
 		// Clear current frame buffer
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -41,12 +42,14 @@ int Window::Start()
 		// Draw
 		unsigned int i_off = 0u;
 		unsigned int size;
-		for (auto s : sprites)
+		for (auto e : entities)
 		{
-			shader->SetTransform(s->GetTransform());
-			size = (unsigned int)s->GetIndices().size();
-			glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
-			i_off += size;
+			if (e->IsDrawable(); Sprite * s = (Sprite*)e) {
+				shader->SetTransform(s->GetTransform());
+				size = (unsigned int)s->GetIndices().size();
+				glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
+				i_off += size;
+			}
 		}
 
 		glfwSwapBuffers(window);
@@ -59,8 +62,7 @@ int Window::Start()
 void Window::AddAgent(Agent* agent)
 {
 	subscribe(agent);
-	sprites.push_back(agent);
-	agents.push_back(agent);
+	entities.push_back(agent);
 }
 
 GLFWwindow* Window::SetupWindow(const int w, const int h)
@@ -103,10 +105,12 @@ void Window::initBuffers()
 {
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
-	for (auto sprite : sprites)
+	for (auto e : entities)
 	{
-		vertices.insert(std::end(vertices), std::begin(sprite->GetVertices()), std::end(sprite->GetVertices()));
-		indices.insert(std::end(indices), std::begin(sprite->GetIndices()), std::end(sprite->GetIndices()));
+		if (e->IsDrawable(); Sprite * sprite = (Sprite*)e) {
+			vertices.insert(std::end(vertices), std::begin(sprite->GetVertices()), std::end(sprite->GetVertices()));
+			indices.insert(std::end(indices), std::begin(sprite->GetIndices()), std::end(sprite->GetIndices()));
+		}
 	}
 
 	glGenVertexArrays(1, &vao);

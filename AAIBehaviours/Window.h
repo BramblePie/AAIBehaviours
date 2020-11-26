@@ -19,9 +19,9 @@ public:
 	{
 		glfwTerminate();
 		delete shader;
-		for (auto s : sprites) delete s;
-		sprites.clear();
-		agents.clear();
+
+		for (auto e : entities) delete e;
+		entities.clear();
 
 		glDeleteBuffers(1, &vbo);
 		glDeleteBuffers(1, &ibo);
@@ -39,8 +39,7 @@ private:
 
 	int width, height;
 
-	std::vector<Sprite*> sprites;
-	std::vector<Agent*> agents;
+	std::vector<IEntity*> entities;
 
 	GLFWwindow* SetupWindow(const int w, const int h);
 
