@@ -1,5 +1,7 @@
 #pragma once
 
+class MouseObservable;
+
 class IMouseObserver
 {
 public:

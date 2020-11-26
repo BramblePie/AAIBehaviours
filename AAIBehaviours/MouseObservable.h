@@ -18,7 +18,7 @@ public:
 		observers.clear();
 	}
 
-	inline void subscribe(IMouseObserver* observer) const
+	inline void Subscribe(IMouseObserver* observer) const
 	{
 		observers.push_back(observer);
 	}
@@ -28,7 +28,7 @@ protected:
 
 private:
 
-	mutable std::vector<IMouseObserver*> observers;
+	mutable std::vector< IMouseObserver*> observers;
 
 	// Callback function on each cursor movement
 	void pos_callback(GLFWwindow* target, const int xpos, const int ypos);

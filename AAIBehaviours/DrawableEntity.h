@@ -6,17 +6,17 @@
 
 #include "IEntity.h"
 
-class Sprite : public IEntity
+class DrawableEntity : public IEntity
 {
 public:
-	glm::dvec2 position = {};
+	glm::dvec2 pos = {};
 	glm::vec2 scale = {};
 	double angle = 0.0;
 
-	Sprite();
-	Sprite(const glm::dvec2 position, double angle = 0.0);
-	Sprite(const glm::dvec2 position, const glm::vec2 scale, double angle = 0.0);
-	virtual ~Sprite() {}
+	DrawableEntity();
+	DrawableEntity(const glm::dvec2 position, double angle = 0.0);
+	DrawableEntity(const glm::dvec2 position, const glm::vec2 scale, double angle = 0.0);
+	virtual ~DrawableEntity() {}
 
 	const glm::mat4 GetTransform() const;
 
@@ -26,8 +26,7 @@ public:
 
 	// Inherited via IEntity
 
-	virtual bool IsDrawable() const override { return true; }
-	virtual bool HasController() const override { return false; }
+	virtual bool IsDrawable() const final override { return true; }
 protected:
 
 	void SetVertices(std::initializer_list<float> list);

@@ -9,8 +9,14 @@ int main()
 {
 	Window* window = new Window(1200, 800);
 
-	window->AddAgent(new Agent(new SeekBehaviour()));
-	window->AddAgent(new Agent(new ArriveBehaviour()));
+	Agent* seeker = new Agent(new SeekBehaviour());
+	Agent* arrive = new Agent(new ArriveBehaviour());
+
+	window->AddAgent(seeker);
+	window->AddAgent(arrive);
+
+	window->Subscribe(seeker);
+	window->Subscribe(arrive);
 
 	window->Start();
 	//system("pause");

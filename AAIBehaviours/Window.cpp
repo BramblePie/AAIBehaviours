@@ -32,7 +32,7 @@ int Window::Start()
 
 		// Processing
 		for (IEntity* e : entities)
-			if (e->HasController(); Agent * a = (Agent*)e)
+			if (BaseAgent* a = (BaseAgent*)e; e->HasController())
 				a->ProcessBehaviour(delta);
 
 		// Clear current frame buffer
@@ -44,7 +44,7 @@ int Window::Start()
 		unsigned int size;
 		for (auto e : entities)
 		{
-			if (e->IsDrawable(); Sprite * s = (Sprite*)e) {
+			if (DrawableEntity* s = (DrawableEntity*)e; e->IsDrawable()) {
 				shader->SetTransform(s->GetTransform());
 				size = (unsigned int)s->GetIndices().size();
 				glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
@@ -59,9 +59,8 @@ int Window::Start()
 	return 0;
 }
 
-void Window::AddAgent(Agent* agent)
+void Window::AddAgent(BaseAgent* agent)
 {
-	subscribe(agent);
 	entities.push_back(agent);
 }
 
@@ -107,11 +106,13 @@ void Window::initBuffers()
 	std::vector<unsigned int> indices;
 	for (auto e : entities)
 	{
-		if (e->IsDrawable(); Sprite * sprite = (Sprite*)e) {
+		if (DrawableEntity* sprite = (DrawableEntity*)e; e->IsDrawable()) {
 			vertices.insert(std::end(vertices), std::begin(sprite->GetVertices()), std::end(sprite->GetVertices()));
 			indices.insert(std::end(indices), std::begin(sprite->GetIndices()), std::end(sprite->GetIndices()));
 		}
 	}
+	if (!vertices.size() > 0)
+		return;
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);

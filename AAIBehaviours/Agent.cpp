@@ -7,8 +7,9 @@ Agent::Agent(IBehaviour* behaviour)
 {
 }
 
-Agent::Agent(IBehaviour* behaviour, Sprite* prey)
-	: Sprite({ 0.0,0.0 }, glm::vec2(100.0)), behaviour(behaviour), prey(prey)
+Agent::Agent(IBehaviour* behaviour, DrawableEntity* prey)
+	: BaseAgent({ 0.0,0.0 }, { 0.0,0.0 }, 1.0, 200.0, 50.0),
+	behaviour(behaviour), prey(prey)
 {
 }
 

@@ -154,18 +154,19 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseObservable.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="DrawableEntity.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="BaseAgent.h" />
     <ClInclude Include="Behaviours.h" />
     <ClInclude Include="IBehaviour.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="IMouseObserver.h" />
     <ClInclude Include="MouseObservable.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="DrawableEntity.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

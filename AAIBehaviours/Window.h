@@ -30,7 +30,7 @@ public:
 
 	int Start();
 
-	void AddAgent(Agent* agent);
+	void AddAgent(BaseAgent* agent);
 
 private:
 	GLFWwindow* window;
