@@ -2,7 +2,7 @@
 
 #include <glm/vec2.hpp>
 
-class Agent;
+class BaseAgent;
 
 class IBehaviour
 {
@@ -11,5 +11,5 @@ public:
 	/// Calculate progression of behaviour
 	/// </summary>
 	/// <returns>Desired speed</returns>
-	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) = 0;
+	virtual glm::dvec2 CalculateBehaviour(const BaseAgent& agent) = 0;
 };

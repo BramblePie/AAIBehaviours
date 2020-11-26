@@ -3,21 +3,13 @@
 #include "DrawableEntity.h"
 #include "BaseAgent.h"
 #include "IMouseObserver.h"
-#include "Behaviours.h"
 
-class Agent : public BaseAgent, public IMouseObserver
+class Agent : public BaseAgent, public DrawableEntity, public IMouseObserver
 {
 public:
-	IBehaviour* behaviour;
-
-	// ---- Behaviour context ----
-
-	glm::dvec2 target = glm::dvec2(0.0);
-	IEntity* prey;
-	ArriveBehaviour::Deceleration deceleration = ArriveBehaviour::Deceleration::normal;
 
 	Agent(IBehaviour* behaviour);
-	Agent(IBehaviour* behaviour, DrawableEntity* prey);
+	Agent(IBehaviour* behaviour, const IEntity* prey);
 
 	virtual ~Agent()
 	{
@@ -26,7 +18,6 @@ public:
 
 	// Inherited via BaseAgent
 
-	virtual bool IsDrawable() const override { return false; }
 	virtual void ProcessBehaviour(const double delta) override;
 
 private:

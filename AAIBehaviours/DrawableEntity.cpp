@@ -15,7 +15,7 @@ DrawableEntity::DrawableEntity(const glm::dvec2 position, double angle)
 }
 
 DrawableEntity::DrawableEntity(const glm::dvec2 position, const glm::vec2 scale, double angle)
-	: pos(position), scale(scale), angle(angle)
+	: position(position), scale(scale), angle(angle)
 {
 	vertices.insert(std::begin(vertices), {
 						0.0f, 0.0f,
@@ -28,7 +28,7 @@ DrawableEntity::DrawableEntity(const glm::dvec2 position, const glm::vec2 scale,
 
 const glm::mat4 DrawableEntity::GetTransform() const
 {
-	glm::mat4 r = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 1.0f));
+	glm::mat4 r = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 1.0f));
 	r = glm::scale(r, glm::vec3(scale.x, scale.y, 1.0f));
 	r = glm::rotate(r, (float)angle, glm::vec3(0.0f, 0.0f, 1.0f));
 

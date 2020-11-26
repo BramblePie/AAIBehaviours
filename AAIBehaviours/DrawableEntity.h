@@ -6,12 +6,9 @@
 
 #include "IEntity.h"
 
-class DrawableEntity : public IEntity
+class DrawableEntity : public virtual IEntity
 {
 public:
-	glm::dvec2 pos = {};
-	glm::vec2 scale = {};
-	double angle = 0.0;
 
 	DrawableEntity();
 	DrawableEntity(const glm::dvec2 position, double angle = 0.0);
@@ -26,8 +23,13 @@ public:
 
 	// Inherited via IEntity
 
-	virtual bool IsDrawable() const final override { return true; }
+	bool IsDrawable() const final override { return true; }
+
 protected:
+
+	glm::dvec2 position;
+	glm::vec2 scale;
+	double angle;
 
 	void SetVertices(std::initializer_list<float> list);
 	void SetIndices(std::initializer_list<unsigned int> list);

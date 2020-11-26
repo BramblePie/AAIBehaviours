@@ -9,7 +9,7 @@ public:
 private:
 
 	// Inherited via IBehaviour
-	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) override;
+	virtual glm::dvec2 CalculateBehaviour(const BaseAgent& agent) override;
 };
 
 class FleeBehaviour : public IBehaviour
@@ -19,7 +19,7 @@ public:
 private:
 
 	// Inherited via IBehaviour
-	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) override;
+	virtual glm::dvec2 CalculateBehaviour(const BaseAgent& agent) override;
 };
 
 class ArriveBehaviour : public IBehaviour
@@ -35,14 +35,13 @@ public:
 private:
 
 	// Inherited via IBehaviour
-	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) override;
+	virtual glm::dvec2 CalculateBehaviour(const BaseAgent& agent) override;
 };
 
 class PursuitBehaviour : public IBehaviour
 {
 public:
 private:
-
 	// Inherited via IBehaviour
-	virtual glm::dvec2 CalculateBehaviour(const Agent& agent) override;
+	virtual glm::dvec2 CalculateBehaviour(const BaseAgent& agent) override;
 };

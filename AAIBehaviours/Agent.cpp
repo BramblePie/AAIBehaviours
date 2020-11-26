@@ -7,9 +7,10 @@ Agent::Agent(IBehaviour* behaviour)
 {
 }
 
-Agent::Agent(IBehaviour* behaviour, DrawableEntity* prey)
-	: BaseAgent({ 0.0,0.0 }, { 0.0,0.0 }, 1.0, 200.0, 50.0),
-	behaviour(behaviour), prey(prey)
+Agent::Agent(IBehaviour* behaviour, const IEntity* prey)
+	: BaseAgent(behaviour, prey, { 0.0,0.0 }, { 0.0,0.0 }, 1.0, 200.0, 50.0),
+	DrawableEntity(GetPosition(), glm::vec2(100.0f))
+
 {
 }
 
@@ -25,13 +26,16 @@ void Agent::ProcessBehaviour(const double delta)
 	if (sp > maxSpeed)
 		velocity = glm::normalize(velocity) * maxSpeed;
 
-	position += velocity * delta;
+	BaseAgent::position += velocity * delta;
 
 	if (sp > 0.0)
 	{
 		heading = glm::normalize(velocity);
-		angle = glm::orientedAngle(glm::dvec2(0.0, -1.0), heading);
+		BaseAgent::angle = glm::orientedAngle(glm::dvec2(0.0, -1.0), heading);
 	}
+
+	DrawableEntity::position = BaseAgent::position;
+	DrawableEntity::angle = BaseAgent::angle;
 }
 
 void Agent::OnMovement(const int x, const int y)

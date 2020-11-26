@@ -32,8 +32,13 @@ int Window::Start()
 
 		// Processing
 		for (IEntity* e : entities)
-			if (BaseAgent* a = (BaseAgent*)e; e->HasController())
+		{
+			if (e->HasController())
+			{
+				BaseAgent* a = dynamic_cast<BaseAgent*>(e);
 				a->ProcessBehaviour(delta);
+			}
+		}
 
 		// Clear current frame buffer
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -44,7 +49,9 @@ int Window::Start()
 		unsigned int size;
 		for (auto e : entities)
 		{
-			if (DrawableEntity* s = (DrawableEntity*)e; e->IsDrawable()) {
+			if (e->IsDrawable())
+			{
+				DrawableEntity* s = dynamic_cast<DrawableEntity*>(e);
 				shader->SetTransform(s->GetTransform());
 				size = (unsigned int)s->GetIndices().size();
 				glDrawRangeElements(GL_TRIANGLES, i_off, i_off + size - 1, size, GL_UNSIGNED_INT, 0);
@@ -59,9 +66,9 @@ int Window::Start()
 	return 0;
 }
 
-void Window::AddAgent(BaseAgent* agent)
+void Window::AddEntity(IEntity* entity)
 {
-	entities.push_back(agent);
+	entities.push_back(entity);
 }
 
 GLFWwindow* Window::SetupWindow(const int w, const int h)
@@ -106,7 +113,9 @@ void Window::initBuffers()
 	std::vector<unsigned int> indices;
 	for (auto e : entities)
 	{
-		if (DrawableEntity* sprite = (DrawableEntity*)e; e->IsDrawable()) {
+		if (e->IsDrawable())
+		{
+			DrawableEntity* sprite = dynamic_cast<DrawableEntity*>(e);
 			vertices.insert(std::end(vertices), std::begin(sprite->GetVertices()), std::end(sprite->GetVertices()));
 			indices.insert(std::end(indices), std::begin(sprite->GetIndices()), std::end(sprite->GetIndices()));
 		}

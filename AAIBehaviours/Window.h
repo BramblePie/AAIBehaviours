@@ -30,7 +30,7 @@ public:
 
 	int Start();
 
-	void AddAgent(BaseAgent* agent);
+	void AddEntity(IEntity* entity);
 
 private:
 	GLFWwindow* window;

@@ -12,8 +12,8 @@ int main()
 	Agent* seeker = new Agent(new SeekBehaviour());
 	Agent* arrive = new Agent(new ArriveBehaviour());
 
-	window->AddAgent(seeker);
-	window->AddAgent(arrive);
+	window->AddEntity((IEntity*)seeker);
+	window->AddEntity((IEntity*)arrive);
 
 	window->Subscribe(seeker);
 	window->Subscribe(arrive);

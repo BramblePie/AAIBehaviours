@@ -2,7 +2,7 @@
 
 #include "Agent.h"
 
-glm::dvec2 SeekBehaviour::CalculateBehaviour(const Agent& agent)
+glm::dvec2 SeekBehaviour::CalculateBehaviour(const BaseAgent& agent)
 {
 	glm::dvec2 d = agent.target - agent.GetPosition();
 	if (d.x != 0.0 && d.y != 0.0)
@@ -12,7 +12,7 @@ glm::dvec2 SeekBehaviour::CalculateBehaviour(const Agent& agent)
 	return dV - agent.GetVelocity();
 }
 
-glm::dvec2 FleeBehaviour::CalculateBehaviour(const Agent& agent)
+glm::dvec2 FleeBehaviour::CalculateBehaviour(const BaseAgent& agent)
 {
 	glm::dvec2 d = agent.GetPosition() - agent.target;
 	if (d.x != 0.0 && d.y != 0.0)
@@ -22,7 +22,7 @@ glm::dvec2 FleeBehaviour::CalculateBehaviour(const Agent& agent)
 	return dV - agent.GetVelocity();
 }
 
-glm::dvec2 ArriveBehaviour::CalculateBehaviour(const Agent& agent)
+glm::dvec2 ArriveBehaviour::CalculateBehaviour(const BaseAgent& agent)
 {
 	glm::dvec2 d = agent.target - agent.GetPosition();
 	const double dist = glm::length(d);
@@ -37,7 +37,7 @@ glm::dvec2 ArriveBehaviour::CalculateBehaviour(const Agent& agent)
 	return glm::dvec2();
 }
 
-glm::dvec2 PursuitBehaviour::CalculateBehaviour(const Agent& agent)
+glm::dvec2 PursuitBehaviour::CalculateBehaviour(const BaseAgent& agent)
 {
 	return glm::dvec2();
 }
