@@ -1,20 +1,25 @@
 #include <iostream>
 
 #include "Window.h"
+#include "Behaviours.h"
+
+#include <glm/glm.hpp>
 
 int main()
 {
 	Window* window = new Window(1200, 800);
 
-	auto f = [](const int button, const int action, const int mod, const int x, const int y) {
-		printf("Mouse click on ( %d, %d ) : button %d, isPressed %d, mods %d\n", x, y, button, action, mod);
-	};
+	Agent* seeker = new Agent(new SeekBehaviour());
+	Agent* arrive = new Agent(new ArriveBehaviour());
 
-	auto& ob = *MouseObserver::GetObserver();
-	ob += f;
+	window->AddEntity((IEntity*)seeker);
+	window->AddEntity((IEntity*)arrive);
+
+	window->Subscribe(seeker);
+	window->Subscribe(arrive);
 
 	window->Start();
+	//system("pause");
 
 	delete window;
-	//system("pause");
 }

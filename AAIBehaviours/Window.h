@@ -3,10 +3,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Shader.h"
-#include "MouseObserver.h"
+#include <vector>
 
-class Window : public MouseObserver
+#include "Shader.h"
+#include "MouseObservable.h"
+#include "Agent.h"
+
+class Window : public MouseObservable
 {
 public:
 
@@ -16,9 +19,18 @@ public:
 	{
 		glfwTerminate();
 		delete shader;
+
+		for (auto e : entities) delete e;
+		entities.clear();
+
+		glDeleteBuffers(1, &vbo);
+		glDeleteBuffers(1, &ibo);
+		glDeleteVertexArrays(1, &vao);
 	}
 
 	int Start();
+
+	void AddEntity(IEntity* entity);
 
 private:
 	GLFWwindow* window;
@@ -27,5 +39,10 @@ private:
 
 	int width, height;
 
+	std::vector<IEntity*> entities;
+
 	GLFWwindow* SetupWindow(const int w, const int h);
+
+	unsigned int vao, vbo, ibo;
+	void initBuffers();
 };
